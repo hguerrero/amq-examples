@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:camel="http://camel.apache.org/schema/spring"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+	<!-- SSL Connection Factory -->
+	<bean id="jmsSslConnectionFactory" class="org.apache.activemq.ActiveMQSslConnectionFactory">
+		<property name="brokerURL" value="${amq.url}" />
+		<property name="userName" value="amqp" />
+		<property name="password" value="password" />
+		<property name="keyStore" value="keystore.jks" />
+		<property name="keyStorePassword" value="mykeystorepass" />
+		<property name="trustStore" value="truststore.ts" />
+		<property name="trustStorePassword" value="mystorepass" />
+    	</bean>
+    <bean class="org.apache.camel.component.jms.JmsConfiguration" id="jmsConfig">
+        <property name="connectionFactory" ref="jmsSslConnectionFactory"/>
+        <property name="concurrentConsumers" value="10"/>
+    </bean>
+    <bean class="org.apache.activemq.camel.component.ActiveMQComponent" id="activemq">
+        <property name="configuration" ref="jmsConfig"/>
+        <!-- If transacted=true then enable CACHE_CONSUMER (if not using XA) to run faster. See more details at: http://camel.apache.org/jms -->
+        <!--  <property name="transacted" value="true"/> <property name="cacheLevelName" value="CACHE_CONSUMER"/> -->
+    </bean>
+    <!-- Define a traditional camel context here -->
+    <camelContext id="camel" xmlns="http://camel.apache.org/schema/spring">
+        <route id="simple-route">
+            <from id="route-timer" uri="timer:foo?period=2000"/>
+            <transform id="route-transform">
+                <method ref="myTransformer"/>
+            </transform>
+            <log id="route-log" message=">>> ${body}"/>
+            <to id="_to1" uri="activemq:topic:mytopic"/>
+        </route>
+    </camelContext>
+</beans>
