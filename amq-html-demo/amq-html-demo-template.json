@@ -1,4 +1,4 @@
- {
+{
     "kind": "Template",
     "apiVersion": "v1",
     "metadata": {
@@ -9,8 +9,8 @@
         }
     },
     "labels": {
-       "app": "amq-html-demo",
-       "createdBy": "amq-html-demo-template"
+        "app": "amq-html-demo",
+        "createdBy": "amq-html-demo-template"
     },
     "parameters": [
         {
@@ -39,11 +39,11 @@
             "value": "false"
         },
         {
-           "description": "Github trigger secret",
-           "name": "GITHUB_TRIGGER_SECRET",
-           "from": "[a-zA-Z0-9]{8}",
-           "generate": "expression",
-           "required": true
+            "description": "Github trigger secret",
+            "name": "GITHUB_TRIGGER_SECRET",
+            "from": "[a-zA-Z0-9]{8}",
+            "generate": "expression",
+            "required": true
         },
         {
             "description": "Github trigger secret",
@@ -52,214 +52,238 @@
             "generate": "expression",
             "required": true
         }
-     ],
+    ],
     "objects": [
         {
             "kind": "BuildConfig",
             "apiVersion": "v1",
             "metadata": {
-               "name": "amq-html-demo",
-               "labels": {
-                  "app": "amq-html-demo"
-               }
+                "name": "amq-html-demo",
+                "labels": {
+                    "app": "amq-html-demo"
+                }
             },
             "spec": {
-               "source": {
-                  "type": "Git",
-                  "git": {
-                     "uri": "https://github.com/hguerrero/amq-examples.git",
-                     "ref": "master"
-                  },
-                  "contextDir":"/amq-html-demo"
-               },
-               "strategy": {
-                  "type": "Source",
-                  "sourceStrategy": {
-                     "from": {
+                "source": {
+                    "type": "Git",
+                    "git": {
+                        "uri": "https://github.com/hguerrero/amq-examples.git",
+                        "ref": "master"
+                    },
+                    "contextDir": "/amq-html-demo"
+                },
+                "strategy": {
+                    "type": "Source",
+                    "sourceStrategy": {
+                        "from": {
+                            "kind": "ImageStreamTag",
+                            "namespace": "openshift",
+                            "name": "nodejs:6"
+                        }
+                    }
+                },
+                "output": {
+                    "to": {
                         "kind": "ImageStreamTag",
-                        "namespace": "openshift",
-                        "name": "nodejs:6"
-                     }
-                  }
-               },
-               "output": {
-                  "to": {
-                     "kind": "ImageStreamTag",
-                     "name": "amq-html-demo:latest"
-                  }
-               },
-               "triggers": [
-                  {
-                     "type": "GitHub",
-                     "github": {
-                        "secret": "${GITHUB_TRIGGER_SECRET}"
-                     }
-                  },
-                  {
-                     "type": "Generic",
-                     "generic": {
-                        "secret": "${GENERIC_TRIGGER_SECRET}"
-                     }
-                  },
-                  {
-                     "type": "ImageChange"
-                  },
-                  {
-                     "type": "ConfigChange"
-                  }
-               ]
+                        "name": "amq-html-demo:latest"
+                    }
+                },
+                "triggers": [
+                    {
+                        "type": "GitHub",
+                        "github": {
+                            "secret": "${GITHUB_TRIGGER_SECRET}"
+                        }
+                    },
+                    {
+                        "type": "Generic",
+                        "generic": {
+                            "secret": "${GENERIC_TRIGGER_SECRET}"
+                        }
+                    },
+                    {
+                        "type": "ImageChange"
+                    },
+                    {
+                        "type": "ConfigChange"
+                    }
+                ]
             }
-         },
-         {
+        },
+        {
             "kind": "ImageStream",
             "apiVersion": "v1",
             "metadata": {
-               "name": "amq-html-demo",
-               "labels": {
-                  "app": "amq-html-demo"
-               }
+                "name": "amq-html-demo",
+                "labels": {
+                    "app": "amq-html-demo"
+                }
             },
             "spec": {
-               "dockerImageRepository": "",
-               "tags": [
-                  {
-                     "name": "latest"
-                  }
-               ]
+                "dockerImageRepository": "",
+                "tags": [
+                    {
+                        "name": "latest"
+                    }
+                ]
             }
-         },
-         {
+        },
+        {
             "kind": "DeploymentConfig",
             "apiVersion": "v1",
             "metadata": {
-               "name": "amq-html-demo",
-               "labels": {
-                  "deploymentConfig": "amq-html-demo",
-                  "app": "amq-html-demo"
-               }
+                "name": "amq-html-demo",
+                "labels": {
+                    "deploymentConfig": "amq-html-demo",
+                    "app": "amq-html-demo"
+                }
             },
             "spec": {
-               "replicas": 1,
-               "selector": {
-                  "deploymentConfig": "amq-html-demo"
-               },
-               "strategy": {
-                  "type": "Rolling"
-               },
-               "template": {
-                  "metadata": {
-                     "labels": {
-                        "deploymentConfig": "amq-html-demo",
-                        "app": "amq-html-demo"
-                     },
-                     "name": "amq-html-demo"
-                  },
-                  "spec": {
-                     "containers": [
-                        {
-                           "name": "amq-html-demo",
-                           "image": "amq-html-demo",
-                           "imagePullPolicy": "Always",
-                           "env": [
-                              {
-                                 "name": "AMQ_URL",
-                                 "value": "${AMQ_URL}"
-                              },
-                              {
-                                 "name": "DESTINATION",
-                                 "value": "${DESTINATION}"
-                              },
-                              {
-                                "name": "MQ_USERNAME",
-                                "value": "${MQ_USERNAME}"
-                             },
-                             {
-                                "name": "MQ_PASSWORD",
-                                "value": "${MQ_PASSWORD}"
-                             },
+                "replicas": 1,
+                "selector": {
+                    "deploymentConfig": "amq-html-demo"
+                },
+                "strategy": {
+                    "type": "Rolling"
+                },
+                "template": {
+                    "metadata": {
+                        "labels": {
+                            "deploymentConfig": "amq-html-demo",
+                            "app": "amq-html-demo"
+                        },
+                        "name": "amq-html-demo"
+                    },
+                    "spec": {
+                        "containers": [
                             {
-                                  "name": "LOOPBACK",
-                                  "value": "${LOOPBACK}"
-                              }
-                           ],
-                           "ports": [
-                              {
-                                 "name": "alertui-http",
-                                 "containerPort": 8080,
-                                 "protocol": "TCP"
-                              }
-                           ],
-                           "resources": {},
-                           "terminationMessagePath": "/dev/termination-log",
-                           "securityContext": {}
-                        }
-                     ],
-                     "restartPolicy": "Always",
-                     "dnsPolicy": "ClusterFirst"
-                  }
-               },
-               "triggers": [
-                  {
-                     "type": "ImageChange",
-                     "imageChangeParams": {
-                        "automatic": true,
-                        "containerNames": [
-                           "amq-html-demo"
+                                "name": "amq-html-demo",
+                                "image": "amq-html-demo",
+                                "imagePullPolicy": "Always",
+                                "env": [
+                                    {
+                                        "name": "AMQ_URL",
+                                        "value": "${AMQ_URL}"
+                                    },
+                                    {
+                                        "name": "DESTINATION",
+                                        "value": "${DESTINATION}"
+                                    },
+                                    {
+                                        "name": "MQ_USERNAME",
+                                        "value": "${MQ_USERNAME}"
+                                    },
+                                    {
+                                        "name": "MQ_PASSWORD",
+                                        "value": "${MQ_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "LOOPBACK",
+                                        "value": "${LOOPBACK}"
+                                    }
+                                ],
+                                "livenessProbe": {
+                                    "failureThreshold": 3,
+                                    "httpGet": {
+                                        "path": "/",
+                                        "port": 8080,
+                                        "scheme": "HTTP"
+                                    },
+                                    "initialDelaySeconds": 60,
+                                    "periodSeconds": 10,
+                                    "successThreshold": 1,
+                                    "timeoutSeconds": 5
+                                },
+                                "readinessProbe": {
+                                    "failureThreshold": 3,
+                                    "httpGet": {
+                                        "path": "/",
+                                        "port": 8080,
+                                        "scheme": "HTTP"
+                                    },
+                                    "initialDelaySeconds": 30,
+                                    "periodSeconds": 10,
+                                    "successThreshold": 1,
+                                    "timeoutSeconds": 1
+                                },
+                                "ports": [
+                                    {
+                                        "name": "alertui-http",
+                                        "containerPort": 8080,
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "resources": {},
+                                "terminationMessagePath": "/dev/termination-log",
+                                "securityContext": {}
+                            }
                         ],
-                        "from": {
-                           "kind": "ImageStreamTag",
-                           "name": "amq-html-demo:latest"
+                        "restartPolicy": "Always",
+                        "dnsPolicy": "ClusterFirst"
+                    }
+                },
+                "triggers": [
+                    {
+                        "type": "ImageChange",
+                        "imageChangeParams": {
+                            "automatic": true,
+                            "containerNames": [
+                                "amq-html-demo"
+                            ],
+                            "from": {
+                                "kind": "ImageStreamTag",
+                                "name": "amq-html-demo:latest"
+                            }
                         }
-                     }
-                  },
-                  {
-                     "type": "ConfigChange"
-                  }
-               ]
+                    },
+                    {
+                        "type": "ConfigChange"
+                    }
+                ]
             }
-         },
-         {
+        },
+        {
             "kind": "Service",
             "apiVersion": "v1",
             "metadata": {
-               "name": "amq-html-demo-http",
-               "labels": {
-                  "app": "amq-html-demo"
-               },
-               "annotations": {
-                  "description": "The web server's http port"
-               }
+                "name": "amq-html-demo-http",
+                "labels": {
+                    "app": "amq-html-demo"
+                },
+                "annotations": {
+                    "description": "The web server's http port"
+                }
             },
             "spec": {
-               "ports": [
-                  {
-                     "port": 8080,
-                     "targetPort": 8080
-                  }
-               ],
-               "selector": {
-                  "deploymentConfig": "amq-html-demo"
-               }
+                "ports": [
+                    {
+                        "port": 8080,
+                        "targetPort": 8080
+                    }
+                ],
+                "selector": {
+                    "deploymentConfig": "amq-html-demo"
+                }
             }
-         },
-         {
+        },
+        {
             "kind": "Route",
             "apiVersion": "v1",
             "metadata": {
-               "name": "amq-html-demo-http-route",
-               "labels": {
-                  "app": "amq-html-demo"
-               },
-               "annotations": {
-                  "description": "Route for application's http service"
-               }
+                "name": "amq-html-demo-http-route",
+                "labels": {
+                    "app": "amq-html-demo"
+                },
+                "annotations": {
+                    "description": "Route for application's http service"
+                }
             },
             "spec": {
-               "to": {
-                  "kind": "Service",
-                  "name": "amq-html-demo-http"
-               }
+                "to": {
+                    "kind": "Service",
+                    "name": "amq-html-demo-http"
+                }
             }
-         }        
+        }
     ]
- }
+}
