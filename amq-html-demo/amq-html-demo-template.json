@@ -67,7 +67,7 @@
                "source": {
                   "type": "Git",
                   "git": {
-                     "uri": "https://github.com/hguerrero/3scale-examples.git",
+                     "uri": "https://github.com/hguerrero/amq-examples.git",
                      "ref": "master"
                   },
                   "contextDir":"/amq-html-demo"
