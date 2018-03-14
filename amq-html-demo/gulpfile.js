@@ -95,8 +95,8 @@ gulp.task('html', ['clean'], function () {
         .pipe(include())
         .pipe(replace('wss://localhost:443', process.env.AMQ_URL || 'wss://messaging-maas-hguerrero.6a63.fuse-ignite.openshiftapps.com:443'))
         .pipe(replace('myaddress', process.env.DESTINATION || 'myqueue'))
-        .pipe(replace('user', process.env.MQ_USERNAME || 'user'))
-        .pipe(replace('password', process.env.MQ_PASSWORD || 'password'))
+        .pipe(replace('m_user', process.env.MQ_USERNAME || 'user'))
+        .pipe(replace('m_password', process.env.MQ_PASSWORD || 'password'))
         .pipe(replace('loopback', process.env.LOOPBACK || 'true'))
         .on("error", notify.onError({ message: "Error: <%= error.message %>", title: "Error running html task" }))
         .pipe(gulp.dest(distPath));
