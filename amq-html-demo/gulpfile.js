@@ -48,9 +48,9 @@ var watchPaths        = {
 };
 
 gulp.task('clean', function () {
-    // return gulp
-    //     .src(distPath, { read: false })
-    //     .pipe(clean());
+    return gulp
+        .src(distPath, { read: false })
+        .pipe(clean());
 });
 
 // Task for sass files
