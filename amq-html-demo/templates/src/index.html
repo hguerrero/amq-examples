@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1">
 
-    <title>AMQP example</title>
+    <title>Stock Quote | AMQP Example</title>
 
     <!-- Loading third party fonts -->
     <link href="http://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,700|" rel="stylesheet" type="text/css">
@@ -37,7 +37,7 @@
             <div class="breadcrumbs">
                 <div class="container">
                     <a href="index.html">Home</a>
-                    <span>Report</span>
+                    <span>Stock</span>
                 </div>
             </div>
 
@@ -45,23 +45,50 @@
                 <div id="accident-app" class="app container">
                     <div class="row">
                         <div class="col-md-8">
-                            <h4>Your Report Information:</h4>
-
-                            <form id="report">
+                            <form id="report" class="form-inline">
                                 <div class="form-group">
-                                    <label for="description" class="required-pf">Description:</label>
-                                    <textarea id="description" class="form-control" name="description" rows="3" placeholder="Please add your message"></textarea>
+                                    <label for="stock">Stock</label>
+                                    <input type="text" name="stock" class="form-control" id="stock" placeholder="Stock Symbol">
                                 </div>
-                                <span class="pull-right chars-remaining-pf">
-                                    <span id="charRemainingCntFld"></span>
-                                    <a id="post" type="submit" class="btn btn-primary btn-lg">Submit</a>
-                                </span>
+                                <div class="form-group">
+                                    <label for="price">Price</label>
+                                    <input type="text" name="price" class="form-control" id="price" placeholder="Stock Price">
+                                </div>
+                                <a id="post" class="btn btn-primary btn-lg">Send Update</a>
                             </form>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <form id="messages-burst" class="form-inline">
+                                <div class="form-group">
+                                    <label for="messages">Messages</label>
+                                    <input type="text" name="messages" class="form-control" id="messages" placeholder="# of Messages">
+                                </div>
+                                <a id="burst" class="btn btn-primary btn-lg">Send Burst</a>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 col-xs-8">
+                            <h4>Latest Stock Information:</h4>
+
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Stock Symbol</th>
+                                        <th class='text-right'>Stock Price</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="latest">
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
-        </main>
+    </div>
+    </main>
     </div>
 
     <script src="assets/js/jquery.min.js"></script>
@@ -69,6 +96,7 @@
     <script src="assets/js/bootstrap-datepicker.min.js"></script>
     <script src="assets/js/patternfly.min.js"></script>
     <script src="assets/js/plugins.min.js"></script>
+    <script src="assets/js/app.min.js"></script>
 
     <script>
         var server = "wss://localhost:443";
@@ -97,17 +125,34 @@
 
         if ('loopback' == 'true') {
             client.on("message", function (context) {
-                console.log(context.message.body);
+                console.log(context.message);
+                var m = JSON.parse(context.message.body);
+                $("#latest").prepend("<tr><td>" + m.stock + "</td><td class='text-right'>" + m.price + "</td></tr>");
             });
             connection.open_receiver("myaddress");
         }
 
         (function ($) {
+            var items = ["RHT", "MSFT", "AMZN", "GOOG", "HPQ"];
+
             $('#post').click(function () {
-                var text = $('#description').val();
-                sender.send({ "body": text });
-                alert("message sent!");
-                $('#description').val("");
+                var text = JSON.stringify($('#report').serializeObject());
+                sender.send({ body: text });
+                setTimeout(function() { alert("messages sent!"); }, 1);
+                $('#stock').val("");
+                $('#price').val("");
+            });
+
+            $('#burst').click(function () {
+                var messages = Number($('#messages').val());
+                for (i = 0; i < messages; i++) {
+                    setTimeout(function() { 
+                        var text = '{ "stock": "' + jQuery.rand(items) + '", "price": "' + ((Math.random() * 10.0) + 92).toFixed(2) + '" }';
+                        sender.send({ "body": text }); 
+                    }, 1000 * i);
+                }
+                setTimeout(function() { alert("messages sent!"); }, 1);
+                $('#messages').val("");
             });
         })(jQuery);
 
