@@ -97,14 +97,15 @@
     <script src="assets/js/patternfly.min.js"></script>
     <script src="assets/js/plugins.min.js"></script>
     <script src="assets/js/app.min.js"></script>
+    <script src="assets/js/config/mq_config.js"></script>
 
     <script>
-        var server = "wss://localhost:443";
+        var server = config.mq_server;
 
         var client = require('rhea');
 
-        client.options.username = 'm_user';
-        client.options.password = 'm_password';
+        client.options.username = config.mq_username;
+        client.options.password = config.mq_password;
 
         var ws = client.websocket_connect(WebSocket);
         var connection = client.connect({
@@ -121,16 +122,14 @@
             rejectUnauthorized: false
         });
 
-        var sender = connection.open_sender('myaddress');
+        var sender = connection.open_sender(config.mq_destination);
 
-        if ('loopback' == 'true') {
-            client.on("message", function (context) {
-                console.log(context.message);
-                var m = JSON.parse(context.message.body);
-                $("#latest").prepend("<tr><td>" + m.stock + "</td><td class='text-right'>" + m.price + "</td></tr>");
-            });
-            connection.open_receiver("myaddress");
-        }
+        client.on("message", function (context) {
+            console.log(context.message);
+            var m = JSON.parse(context.message.body);
+            $("#latest").prepend("<tr><td>" + m.stock + "</td><td class='text-right'>" + m.price + "</td></tr>");
+        });
+        connection.open_receiver(config.mq_destination);
 
         (function ($) {
             var items = ["RHT", "MSFT", "AMZN", "GOOG", "HPQ"];
@@ -138,7 +137,7 @@
             $('#post').click(function () {
                 var text = JSON.stringify($('#report').serializeObject());
                 sender.send({ body: text });
-                setTimeout(function() { alert("messages sent!"); }, 1);
+                setTimeout(function () { alert("messages sent!"); }, 1);
                 $('#stock').val("");
                 $('#price').val("");
             });
@@ -146,12 +145,12 @@
             $('#burst').click(function () {
                 var messages = Number($('#messages').val());
                 for (i = 0; i < messages; i++) {
-                    setTimeout(function() { 
+                    setTimeout(function () {
                         var text = '{ "stock": "' + jQuery.rand(items) + '", "price": "' + ((Math.random() * 10.0) + 92).toFixed(2) + '" }';
-                        sender.send({ "body": text }); 
+                        sender.send({ "body": text });
                     }, 1000 * i);
                 }
-                setTimeout(function() { alert("messages sent!"); }, 1);
+                setTimeout(function () { alert("messages sent!"); }, 1);
                 $('#messages').val("");
             });
         })(jQuery);
