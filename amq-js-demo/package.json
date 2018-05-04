@@ -3,7 +3,7 @@
   "description": "AMQ Javascript Client",
   "version": "1.0.0",
   "author": "Red Hat, Inc.",
-  "license": "Apache 2.0",
+  "license": "Apache-2.0",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
