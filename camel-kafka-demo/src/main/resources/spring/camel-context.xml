@@ -5,6 +5,10 @@
         <property name="brokers" value="my-cluster-kafka-bootstrap-myproject.192.168.99.100.nip.io:443"/>
     </bean>
     <camelContext id="camel" xmlns="http://camel.apache.org/schema/spring">
+        <route id="consumer-route">
+            <from id="kafka-consumer" uri="kafka:my-topic?securityProtocol=SSL&amp;sslTruststoreLocation=src/main/resources/keystore.jks&amp;sslTruststorePassword=password"/>
+            <log id="route-log" message="consumer >>> ${body}"/>
+        </route>
         <route id="producer-route">
             <from id="route-timer" uri="timer://foo?period=1000"/>
             <setBody id="route-setBody">
@@ -12,10 +16,6 @@
             </setBody>
             <to id="_kafka1" uri="kafka:my-topic?securityProtocol=SSL&amp;sslTruststoreLocation=src/main/resources/keystore.jks&amp;sslTruststorePassword=password"/>
             <log id="route-log-producer" message="producer >>> ${body}"/>
-        </route>
-        <route id="consumer-route">
-            <from id="kafka-consumer" uri="kafka:my-topic?securityProtocol=SSL&amp;sslTruststoreLocation=src/main/resources/keystore.jks&amp;sslTruststorePassword=password"/>
-            <log id="route-log" message="consumer >>> ${body}"/>
         </route>
     </camelContext>
 </beans>
