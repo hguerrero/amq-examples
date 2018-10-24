@@ -25,13 +25,13 @@ public class KafkaDemoApplication implements CommandLineRunner {
 	@Autowired
     private KafkaTemplate<String, String> template;
 
-    private final CountDownLatch latch = new CountDownLatch(3);
+    private final CountDownLatch latch = new CountDownLatch(10);
 
     @Override
     public void run(String... args) throws Exception {
-        this.template.send("my-topic", "foo1");
-        this.template.send("my-topic", "foo2");
-        this.template.send("my-topic", "foo3");
+    	for (int i = 0; i < 10; i++) {
+    		this.template.send("my-topic", "foo" + (i+1));
+    	}
         latch.await(60, TimeUnit.SECONDS);
         logger.info("All received");
     }
