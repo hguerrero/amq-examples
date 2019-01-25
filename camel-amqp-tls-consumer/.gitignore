@@ -1,0 +1,6 @@
+.settings
+.classpath
+.project
+*.jks
+*.crt
+target/
