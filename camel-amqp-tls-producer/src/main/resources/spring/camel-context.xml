@@ -9,8 +9,9 @@
         <route id="producer-route">
             <from id="route-timer" uri="timer://foo?period={{timer.period}}&amp;repeatCount={{timer.repeat-count}}"/>
             <setBody id="route-setBody">
-                <simple>Message sent ${bean:counter.incrementAndGet}</simple>
+                <simple>Message ${bean:counter.incrementAndGet}</simple>
             </setBody>
+            <log message="Sent ${body}"/>
             <toD id="_amqp1" uri="{{route.to}}"/>
         </route>    
     </camelContext>
