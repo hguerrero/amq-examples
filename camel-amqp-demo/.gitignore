@@ -1,0 +1,8 @@
+.DS_Store
+.settings
+.classpath
+.project
+*.jks
+*.ts
+*.crt
+target/
