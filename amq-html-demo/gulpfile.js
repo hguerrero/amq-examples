@@ -71,14 +71,14 @@ gulp.task('sass', ['clean'], function () {
 // Javscript task
 gulp.task('scripts', ['clean'], function(){
     return gulp
-        .src(srcPath + 'assets/js/*.js')
+        .src([srcPath + '/**/js/*.js',srcPath + '/**/js/config/*.js'])
         .pipe(include())
         .pipe(sourcemaps.init())
         .pipe(uglify())
         .on("error", notify.onError({ message: "Error: <%= error.message %>", title: "Error running scripts task" }))
         .pipe(rename({ suffix: '.min' }))
-        .pipe(sourcemaps.write('maps'))
-        .pipe(gulp.dest(distPath + 'assets/js'));
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest(distPath));
 });
 
 // Font task
@@ -115,25 +115,25 @@ gulp.task('images', ['clean'], function () {
 gulp.task("copy:libs", ['clean'], function () {
     var assets = {
         css: [
-            paths.node_modules + "patternfly/dist/css/**",
-            paths.node_modules + "patternfly/node_modules/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css"
+            paths.node_modules + "/patternfly/dist/css/**/*.min.css",
+            paths.node_modules + "/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css"
         ],
         js: [
-            paths.node_modules + "patternfly/dist/js/**",
-            paths.node_modules + "patternfly/node_modules/jquery/dist/**",
-            paths.node_modules + "patternfly/node_modules/bootstrap/dist/js/**",
-            paths.node_modules + "patternfly/node_modules/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js",
-            paths.node_modules + "rhea/dist/rhea.js"
+            paths.node_modules + "/patternfly/dist/js/**/*.min.js",
+            paths.node_modules + "/jquery/dist/**/*.min.js",
+            paths.node_modules + "/bootstrap/dist/js/**/*.min.js",
+            paths.node_modules + "/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js",
+            paths.node_modules + "/rhea/dist/rhea.js"
         ],
         fonts: [
-            paths.node_modules + "patternfly/dist/fonts/**"
+            paths.node_modules + "/patternfly/dist/fonts/**"
         ]
     };
 
     _(assets).forEach(function(assets, type) {
         gulp
             .src(assets)
-            .pipe(gulp.dest(distPath + 'assets/' + type));
+            .pipe(gulp.dest(distPath + '/assets/' + type));
     });
 
     return assets;
