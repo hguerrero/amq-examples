@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring       http://camel.apache.org/schema/spring/camel-spring.xsd">
+    <!-- Kafka Configuration -->
+    <bean class="org.apache.camel.component.kafka.KafkaComponent" id="kafka">
+        <property name="brokers" value="${kafka.brokers}"/>
+    </bean>
+    <camelContext id="camel" xmlns="http://camel.apache.org/schema/spring">
+        <route id="amqp-kafka-bridge">
+            <from id="amqp-consumer" uri="{{route.from}}"/>
+            <log id="route-log" message="Message received >>> ${body}"/>
+            <toD id="kakfa-producer" uri="{{route.to}}"/>
+        </route>
+    </camelContext>
+</beans>
