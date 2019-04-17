@@ -9,7 +9,7 @@
   <description>Spring Boot example running a Camel route defined in XML</description>
   <properties>
     <spring-boot.version>1.5.4.RELEASE</spring-boot.version>
-    <fabric8.version>3.0.11.fuse-710023-redhat-00001</fabric8.version>
+    <fabric8.version>3.0.11.fuse-720027-redhat-00001</fabric8.version>
     <fabric8.maven.plugin.version>3.5.33.fuse-710023-redhat-00002</fabric8.maven.plugin.version>
     <maven-compiler-plugin.version>3.6.0</maven-compiler-plugin.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -20,7 +20,7 @@
       <dependency>
         <groupId>io.fabric8</groupId>
         <artifactId>fabric8-project-bom-camel-spring-boot</artifactId>
-        <version>3.0.11.fuse-710023-redhat-00001</version>
+        <version>3.0.11.fuse-720027-redhat-00001</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
