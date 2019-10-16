@@ -39,46 +39,48 @@ public class RideSharePipeline {
 
         KStream<String, String> uber = builder.stream("uber", Consumed.with(Serdes.String(), Serdes.String()));
 
-        KTable<Windowed<Integer>, Transport> uberCost = uber.map((key, value) -> {
+        KTable<Windowed<Integer>, Transport> uberCost = 
+        uber.map((key, value) -> {
             Transport transport = Transport.parse(value);
             transport.setCompany("uber");
             return KeyValue.pair(transport.getAvailableSpace(), transport);
-        }).groupByKey(
-            Grouped.with(Serdes.Integer(), transportSerde)
-        ).windowedBy(
-            TimeWindows.of(Duration.ofMinutes(1))
-        ).reduce(
-            (aggValue, newValue) -> newValue
-        );
-        uberCost.toStream()
-        .peek(
-            (key, value) -> log.info("Uber => Spaces:" + key + " Cost: " + String.format("$ %3d", value.getCost()) + " USD")
-        );
-
-        KStream<String, String> lyft = builder.stream("lyft", Consumed.with(Serdes.String(), Serdes.String()));
-
-        KTable<Windowed<Integer>, Transport> lyftCost = lyft.map((key, value) -> {
-            Transport transport = Transport.parse(value);
-			transport.setCompany("lyft");
-            return KeyValue.pair(transport.getAvailableSpace(), transport);
-        }).groupByKey(
+        })
+        .groupByKey(
             Grouped.with(Serdes.Integer(), transportSerde)
         )
         .windowedBy(
             TimeWindows.of(Duration.ofMinutes(1))
         )
         .reduce(
-			(aggValue, newValue) -> newValue
+            (aggValue, newValue) -> newValue
+        )
+        ;
+        uberCost
+        .toStream()
+        .peek(
+            (key, value) -> log.info("Uber => Spaces:" + key + " Cost: " + String.format("$ %3d", value.getCost()) + " USD")
         );
-        lyftCost.toStream()
-        .peek( 
-			(key, value) -> log.info("Lyft => Spaces:" + key + " Cost: " + String.format("$ %3d", value.getCost()) + " USD")
-        );
+
+        // KStream<String, String> lyft = builder.stream("lyft", Consumed.with(Serdes.String(), Serdes.String()));
+
+        // KTable<Windowed<Integer>, Transport> lyftCost = lyft.map((key, value) -> {
+        //     Transport transport = Transport.parse(value);
+		// 	transport.setCompany("lyft");
+        //     return KeyValue.pair(transport.getAvailableSpace(), transport);
+        // }).groupByKey(
+        //     Grouped.with(Serdes.Integer(), transportSerde)
+        // )
+        // .windowedBy(
+        //     TimeWindows.of(Duration.ofMinutes(1))
+        // )
+        // .reduce(
+		// 	(aggValue, newValue) -> newValue
+        // );
+        // // lyftCost.toStream()
+        // // .peek( 
+		// // 	(key, value) -> log.info("Lyft => Spaces:" + key + " Cost: " + String.format("$ %3d", value.getCost()) + " USD")
+        // // );
         
-        
-
-
-
         KTable<Windowed<Integer>, Transport> rides = uberCost.leftJoin(
 			lyftCost,
 			new ValueJoiner<Transport, Transport, Transport>() {
