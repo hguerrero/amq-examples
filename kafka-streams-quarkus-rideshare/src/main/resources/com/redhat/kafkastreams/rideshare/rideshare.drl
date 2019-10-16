@@ -1,0 +1,11 @@
+package com.redhat.kafkastreams.rideshare;
+
+import com.redhat.kafkastreams.rideshare.Transport;
+
+rule "Cheapest Transport"
+when
+    $t1: Transport()
+    $t2: Transport(this != $t1, getCost() < $t1.getCost())
+then
+    delete($t1);
+end
