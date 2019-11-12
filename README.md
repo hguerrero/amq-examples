@@ -16,3 +16,11 @@ This repository contains a set of examples to be used with Red Hat AMQ messaging
 * [Quarkus Apache Kafka Extension](kafka-quarkus-producer): Quarkus application using the Kafka extension and MicroProfile messaging
 * [Quarkus Apache Kafka Streams Extension](kafka-streams-quarkus-rideshare): Quarkus application using the Kafka Streams extension and, Kogito for event processing
 <!--* [MQTT HTML Demo](mqtt-html-demo)-->
+
+## System Requirements
+
+These applications are designed to be run with Red Hat AMQ 7 components. To compile and run these projects you will need:
+
+* JDK 8 or 11+
+* Maven 3
+* GraalVM Community
