@@ -1,0 +1,15 @@
+{
+    "type": "record",
+    "name": "price",
+    "namespace": "com.redhat",
+    "fields": [
+        {
+            "name": "symbol",
+            "type": "string"
+        },
+        {
+            "name": "price",
+            "type": "string"
+        }
+    ]
+}
