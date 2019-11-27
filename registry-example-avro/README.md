@@ -13,10 +13,10 @@ To start the local development cluster and registry:
 1. Be sure Docker Desktop is running.
 1. Open a terminal window and execute the following command:
 
-    ```bash 
+    ```bash
     docker-compose -f docker-compose.yaml up
     ```
-    
+
 1. Wait until all the components are up and running.
 
 ## Start Application
@@ -40,7 +40,7 @@ To use the Apicurio Avro Serializer and Deserializer:
     mp.messaging.outgoing.price-out.value.serializer=io.apicurio.registry.utils.serde.AvroKafkaSerializer
     mp.messaging.incoming.price-in.value.deserializer=io.apicurio.registry.utils.serde.AvroKafkaDeserializer
     ```
-    
+
 3. Comment the same lines that use the `io.confluent.kafka.*` packages
 
     ```properies
@@ -54,7 +54,7 @@ To use the Apicurio Avro Serializer and Deserializer:
     mp.messaging.incoming.price-in.apicurio.registry.url=http://localhost:8080
     ```
 
-4. Comment the property using the `schema` registry
+5. Comment the property using the `schema` registry
 
     ```properies
     # mp.messaging.incoming.price-in.schema.registry.url=http://localhost:8080/confluent
@@ -65,5 +65,3 @@ To test that everything is workin start again the application with the new confi
 ```bash
 ./mvnw compile quarkus:dev
 ```
-
-
