@@ -29,7 +29,7 @@ The application is based on Quarkus so it can be started executing the followin 
 
 This will start the application in the Confluent schema registry compatibility mode.
 
-## Apicurio Serializer and Deserializer
+## Apicurio Serializer and Deserializer
 
 To use the Apicurio Avro Serializer and Deserializer:
 
