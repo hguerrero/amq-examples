@@ -1,6 +1,6 @@
 # Apicurio Service Registry Example - Avro
 
-This project shows how to use the Apicurio Service Registry to manage Apache Kafka data schemas. This example uses the Avro data format.
+This project shows how to use the Apicurio Service Registry to manage Apache Kafka data schemas. This example uses the Avro data format messages to and from a local cluster.
 
 ## Apache Kafka Cluster and Apicurio Service Registry
 
