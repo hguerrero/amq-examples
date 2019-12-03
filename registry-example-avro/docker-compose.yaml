@@ -34,7 +34,7 @@ services:
   registry:
     image: apicurio/apicurio-registry-mem
     ports:
-      - "8080:8080"
+      - "8081:8080"
     environment:
       KAFKA_BOOTSTRAP_SERVERS: localhost:9092
       APPLICATION_ID: registry_id
