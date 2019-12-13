@@ -270,7 +270,7 @@
             "kind": "Route",
             "apiVersion": "v1",
             "metadata": {
-                "name": "amq-html-demo-http-route",
+                "name": "www",
                 "labels": {
                     "app": "amq-html-demo"
                 },
