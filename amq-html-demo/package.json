@@ -10,7 +10,7 @@
   },
   "author": "@hguerreroo",
   "license": "MIT",
-  "devDependencies": {
+  "dependencies": {
     "event-stream": "^3.3.4",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^4.1.0",
@@ -28,9 +28,7 @@
     "gulp-webserver": "^0.9.1",
     "lodash": "^4.17.4",
     "rhea": "^0.2.10",
-    "yn": "^2.0.0"
-  },
-  "dependencies": {
+    "yn": "^2.0.0",
     "patternfly": "^3.37.1"
   }
 }
