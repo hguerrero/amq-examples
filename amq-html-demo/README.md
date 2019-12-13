@@ -14,7 +14,9 @@ To make installation easier, we provide an openshift template to install the web
 
 1. Add application to your project using the template
 
+    ```bash
     oc process -f https://raw.githubusercontent.com/hguerrero/amq-examples/master/amq-html-demo/amq-html-demo-template.json -p AMQ_URL=wss://<ADDRESSSPACE_HOSTNAME>:443 -p DESTINATION=<ADDRESS_NAME> -p MQ_USERNAME=<MESSAGINGUSER_USERNAME> -p MQ_PASSWORD=<MESSAGINGUSER_PASSWORD> | oc apply -f -
+    ```
 
     Replace the variables acording to the AMQ online address space, address and messaging user.
 
@@ -24,7 +26,9 @@ To make installation easier, we provide an openshift template to install the web
 
 Login into the application by opening a tab in your web browser and navigate to:
 
-  `http://www-html-demo.<APPS_HOSTNAME>`
+  ```bash
+  http://www-html-demo.<APPS_HOSTNAME>
+  ```
 
 ## Support & Ownership
 
