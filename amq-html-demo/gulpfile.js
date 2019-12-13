@@ -73,6 +73,11 @@ gulp.task('scripts', ['clean'], function(){
     return gulp
         .src([srcPath + '/**/js/*.js',srcPath + '/**/js/config/*.js'])
         .pipe(include())
+        .pipe(replace('wss://localhost:443', process.env.AMQ_URL || 'wss://messaging-maas-hguerrero.6a63.fuse-ignite.openshiftapps.com:443'))
+        .pipe(replace('m_address', process.env.DESTINATION || 'myqueue'))
+        .pipe(replace('m_user', process.env.MQ_USERNAME || 'user'))
+        .pipe(replace('m_password', process.env.MQ_PASSWORD || 'password'))
+        .pipe(replace('loopback', process.env.LOOPBACK || 'true'))
         .pipe(sourcemaps.init())
         .pipe(uglify())
         .on("error", notify.onError({ message: "Error: <%= error.message %>", title: "Error running scripts task" }))
@@ -93,11 +98,6 @@ gulp.task('html', ['clean'], function () {
     return gulp
         .src([srcPath + '*.html'])
         .pipe(include())
-        .pipe(replace('wss://localhost:443', process.env.AMQ_URL || 'wss://messaging-maas-hguerrero.6a63.fuse-ignite.openshiftapps.com:443'))
-        .pipe(replace('myaddress', process.env.DESTINATION || 'myqueue'))
-        .pipe(replace('m_user', process.env.MQ_USERNAME || 'user'))
-        .pipe(replace('m_password', process.env.MQ_PASSWORD || 'password'))
-        .pipe(replace('loopback', process.env.LOOPBACK || 'true'))
         .on("error", notify.onError({ message: "Error: <%= error.message %>", title: "Error running html task" }))
         .pipe(gulp.dest(distPath));
 });
