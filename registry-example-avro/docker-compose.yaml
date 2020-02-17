@@ -3,6 +3,7 @@ version: '2'
 services:
 
   zookeeper:
+    container_name: zookeeper
     image: strimzi/kafka:0.14.0-kafka-2.3.0
     command: [
       "sh", "-c",
@@ -14,6 +15,7 @@ services:
       LOG_DIR: /tmp/logs
 
   kafka:
+    container_name: kafka
     image: strimzi/kafka:0.14.0-kafka-2.3.0
     command: [
       "sh", "-c",
@@ -32,10 +34,12 @@ services:
       KAFKA_CREATE_TOPICS: "storage-topic:1:1:compact,global-id-topic:1:1:compact,input-topic:1:1:compact,logx-topic:1:1:compact,dbx-topic:1:1:compact"
 
   registry:
-    image: apicurio/apicurio-registry-mem
+    container_name: registry1
+    image: apicurio/apicurio-registry-mem:1.1.0.Final
     ports:
       - "8081:8080"
     environment:
+      QUARKUS_PROFILE: prod
       KAFKA_BOOTSTRAP_SERVERS: localhost:9092
       APPLICATION_ID: registry_id
       APPLICATION_SERVER: localhost:9000
