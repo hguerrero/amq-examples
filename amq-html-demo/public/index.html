@@ -13,21 +13,10 @@
     <link href="assets/fonts/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="assets/fonts/lineo-icon/style.css" rel="stylesheet" type="text/css">
 
-    <link rel="stylesheet" href="assets/css/patternfly.min.css">
-    <link rel="stylesheet" href="assets/css/bootstrap-datepicker.min.css">
-
+    <link rel="stylesheet" href="../node_modules/@patternfly/patternfly/patternfly.css">
+    
     <!-- Loading main css file -->
-    <link rel="stylesheet" href="assets/css/styles.min.css">
-
-    <!--[if lt IE 9]>
-		<script src="js/ie-support/html5.js"></script>
-		<script src="js/ie-support/respond.js"></script>
-		<![endif]-->
-
-    <!-- This example was adapted from a chat example included in the
-  excellent 'JavaScript: The Definitive Guide', by David Flanagan and
-  published by O'Reilly. -->
-    <script src="assets/js/rhea.js"></script>
+    <link rel="stylesheet" href="../src/styles/styles.scss">
 </head>
 
 <body>
@@ -45,42 +34,55 @@
                 <div id="accident-app" class="app container">
                     <div class="row">
                         <div class="col-md-8">
-                            <form id="report" class="form-inline">
-                                <div class="form-group">
-                                    <label for="stock">Stock</label>
-                                    <input type="text" name="stock" class="form-control" id="stock" placeholder="Stock Symbol">
+                            <form id="report" class="form-inline pf-c-form pf-m-horizontal">
+                                <div class="form-group pf-c-form__group">
+                                    <label for="stock" class="pf-c-form__label"><span class="pf-c-form__label-text">Stock</span></label>
+                                    <div class="form-group pf-c-form__horizontal-group">
+                                        <input type="text" name="stock" class="form-control pf-c-form-control" id="stock" placeholder="Stock Symbol">
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="price">Price</label>
-                                    <input type="text" name="price" class="form-control" id="price" placeholder="Stock Price">
+                                <div class="form-group pf-c-form__group">
+                                    <label for="price" class="pf-c-form__label"><span class="pf-c-form__label-text">Price</span></label>
+                                    <div class="form-group pf-c-form__horizontal-group">
+                                        <input type="text" name="price" class="form-control pf-c-form-control" id="price" placeholder="Stock Price">
+                                    </div>
                                 </div>
-                                <a id="post" class="btn btn-primary btn-lg">Send Update</a>
+                                <div class="pf-c-form__group pf-m-action">
+                                    <div class="pf-c-form__actions">
+                                        <button id="post" class="pf-c-button pf-m-primary" type="submit">Send Update</button>
+                                    </div>
+                                </div>
                             </form>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-8">
-                            <form id="messages-burst" class="form-inline">
-                                <div class="form-group">
-                                    <label for="messages">Messages</label>
-                                    <input type="text" name="messages" class="form-control" id="messages" placeholder="# of Messages">
+                            <form id="messages-burst" class="form-inline pf-c-form pf-m-horizontal">
+                                <div class="form-group pf-c-form__group">
+                                    <label for="messages" class="pf-c-form__label"><span class="pf-c-form__label-text">Messages</span></label>
+                                    <div class="form-group pf-c-form__horizontal-group">
+                                        <input type="text" name="messages" class="form-control pf-c-form-control" id="stock" placeholder="# of Messages">
+                                    </div>
                                 </div>
-                                <a id="burst" class="btn btn-primary btn-lg">Send Burst</a>
+                                <div class="pf-c-form__group pf-m-action">
+                                    <div class="pf-c-form__actions">
+                                        <button id="post" class="pf-c-button pf-m-primary" type="submit">Send Burst</button>
+                                    </div>
+                                </div>
                             </form>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-4 col-xs-8">
-                            <h4>Latest Stock Information:</h4>
-
-                            <table class="table table-striped">
+                            <table class="table table-striped pf-c-table pf-m-grid-m" role="grid">
+                                <caption>Latest Stock Information:</caption>
                                 <thead>
-                                    <tr>
-                                        <th>Stock Symbol</th>
-                                        <th class='text-right'>Stock Price</th>
+                                    <tr role="row">
+                                        <th role="columnheader" scope="col">Stock Symbol</th>
+                                        <th role="columnheader" scope="col" class='text-right'>Stock Price</th>
                                     </tr>
                                 </thead>
-                                <tbody id="latest">
+                                <tbody id="latest" role="rowgroup">
                                 </tbody>
                             </table>
                         </div>
@@ -91,18 +93,12 @@
     </main>
     </div>
 
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/jquery-1.11.1.min.min.js"></script>
-    <script src="assets/js/bootstrap-datepicker.min.js"></script>
-    <script src="assets/js/patternfly.min.js"></script>
-    <script src="assets/js/plugins.min.js"></script>
-    <script src="assets/js/app.min.js"></script>
-    <script src="assets/js/config/mq_config.min.js"></script>
+    <script src="../src/config/mq_config.js"></script>
+    <script src="../src/rhea-client.js"></script>
+    <script src="../src/app.js"></script>
 
     <script>
         var server = config.mq_server;
-
-        var client = require('rhea');
 
         client.options.username = config.mq_username;
         client.options.password = config.mq_password;

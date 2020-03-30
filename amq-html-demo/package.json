@@ -1,34 +1,33 @@
 {
   "name": "amq-html-demo",
   "version": "1.0.0",
-  "description": "AMQ HTML Javascript Client Demo",
-  "main": "index.html",
+  "main": "public/index.html",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "gulp serve",
-    "dev": "gulp"
+    "clean": "rm -rf dist .cache tmp",
+    "format": "prettier src/**/*.ts src/**/*.tsx public/*.html --write",
+    "start": "parcel serve public/*.html",
+    "prebuild": "yarn lint && yarn clean",
+    "build": "npm run clean && env NODE_ENV=production parcel build --no-source-maps --public-url ./ ./public/*.html",
+    "build:dev": "env NODE_ENV=development parcel build public/*.html",
+    "postbuild": "cp nginx.conf dist",
+    "lint": "tslint --format stylish --fix --project tsconfig.json",
+    "pretest": "yarn lint",
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
-  "author": "@hguerreroo",
   "license": "MIT",
+  "devDependencies": {
+    "@fortawesome/fontawesome-free": "^5.13.0",
+    "parcel-bundler": "^1.12.4",
+    "sass": "^1.26.3",
+    "tslint": "^6.1.0",
+    "typescript": "^3.8.3"
+  },
   "dependencies": {
-    "event-stream": "^3.3.4",
-    "gulp": "^3.9.1",
-    "gulp-autoprefixer": "^4.1.0",
-    "gulp-clean": "^0.4.0",
-    "gulp-clean-css": "^3.9.2",
-    "gulp-imagemin": "^4.1.0",
-    "gulp-include": "^2.3.1",
-    "gulp-livereload": "^3.8.1",
-    "gulp-notify": "^3.2.0",
-    "gulp-rename": "^1.2.2",
-    "gulp-sass": "^3.1.0",
-    "gulp-sourcemaps": "^2.6.3",
-    "gulp-string-replace": "^1.0.0",
-    "gulp-uglify": "^3.0.0",
-    "gulp-webserver": "^0.9.1",
-    "lodash": "^4.17.4",
-    "rhea": "^0.2.10",
-    "yn": "^2.0.0",
-    "patternfly": "^3.37.1"
+    "@patternfly/patternfly": "^2.71.1",
+    "@patternfly/react-core": "^3.146.0",
+    "config": "^3.3.1",
+    "jquery": "^3.4.1",
+    "rhea": "^1.0.20"
   }
 }
