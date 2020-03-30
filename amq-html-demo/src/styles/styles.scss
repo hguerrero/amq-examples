@@ -1253,7 +1253,7 @@ form textarea {
       content: " ";
       width: 7px;
       height: 5px;
-      background: url(../img/arrow.png) no-repeat;
+      background: url(../../public/assets/img/arrow.png) no-repeat;
       display: inline-block;
       margin-left: 10px; }
 
@@ -1420,7 +1420,7 @@ form textarea {
       margin-left: 10px;
       width: 10px;
       height: 7px;
-      background: url("../img/arrow-blue.png"); }
+      background: url("../../public/assets/img/arrow-blue.png"); }
 
 .testimonial-slider {
   color: white;
@@ -1505,7 +1505,7 @@ form textarea {
     left: 15px;
     right: 15px;
     position: absolute;
-    background: url(../img/dotted.png) repeat-x;
+    background: url(../../public/assets/img/dotted.png) repeat-x;
     z-index: -1; }
     @media screen and (max-width: 768px) {
       .features:after {
@@ -1653,7 +1653,7 @@ form textarea {
       content: " ";
       width: 7px;
       height: 5px;
-      background: url(../img/arrow.png) no-repeat;
+      background: url(../../public/assets/img/arrow.png) no-repeat;
       display: block;
       position: absolute;
       top: 10px;
