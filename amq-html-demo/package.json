@@ -17,15 +17,14 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@fortawesome/fontawesome-free": "^5.13.0",
-    "parcel-bundler": "^1.12.4",
     "sass": "^1.26.3",
     "tslint": "^6.1.0",
     "typescript": "^3.8.3"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.13.0",
     "@patternfly/patternfly": "^2.71.1",
-    "@patternfly/react-core": "^3.146.0",
+    "parcel-bundler": "^1.12.4",
     "config": "^3.3.1",
     "jquery": "^3.4.1",
     "rhea": "^1.0.20"
