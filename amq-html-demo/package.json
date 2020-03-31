@@ -5,9 +5,10 @@
   "scripts": {
     "clean": "rm -rf dist .cache tmp",
     "format": "prettier src/**/*.ts src/**/*.tsx public/*.html --write",
-    "start": "parcel serve public/*.html",
+    "start:dev": "parcel serve public/*.html",
+    "start": "node index.js",
     "prebuild": "yarn lint && yarn clean",
-    "build": "npm run clean && env NODE_ENV=production parcel build --no-source-maps --public-url ./ ./public/*.html",
+    "build": "npm run clean && env NODE_ENV=production parcel build --no-content-hash --no-source-maps public/*.html",
     "build:dev": "env NODE_ENV=development parcel build public/*.html",
     "lint": "tslint --format stylish --fix --project tsconfig.json",
     "pretest": "yarn lint",
@@ -22,10 +23,11 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.13.0",
     "@patternfly/patternfly": "^2.71.1",
-    "parcel-bundler": "^1.12.4",
-    "sass": "^1.26.3",
     "config": "^3.3.1",
+    "express": "^4.17.1",
     "jquery": "^3.4.1",
-    "rhea": "^1.0.20"
+    "parcel-bundler": "^1.12.4",
+    "rhea": "^1.0.20",
+    "sass": "^1.26.3"
   }
 }
