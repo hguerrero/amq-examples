@@ -9,7 +9,6 @@
     "prebuild": "yarn lint && yarn clean",
     "build": "npm run clean && env NODE_ENV=production parcel build --no-source-maps --public-url ./ ./public/*.html",
     "build:dev": "env NODE_ENV=development parcel build public/*.html",
-    "postbuild": "cp nginx.conf dist",
     "lint": "tslint --format stylish --fix --project tsconfig.json",
     "pretest": "yarn lint",
     "test": "jest",
@@ -17,7 +16,6 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "sass": "^1.26.3",
     "tslint": "^6.1.0",
     "typescript": "^3.8.3"
   },
@@ -25,6 +23,7 @@
     "@fortawesome/fontawesome-free": "^5.13.0",
     "@patternfly/patternfly": "^2.71.1",
     "parcel-bundler": "^1.12.4",
+    "sass": "^1.26.3",
     "config": "^3.3.1",
     "jquery": "^3.4.1",
     "rhea": "^1.0.20"
