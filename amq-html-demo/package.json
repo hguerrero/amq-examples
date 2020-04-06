@@ -7,13 +7,8 @@
     "format": "prettier src/**/*.ts src/**/*.tsx public/*.html --write",
     "start:dev": "parcel serve public/*.html",
     "start": "node index.js",
-    "prebuild": "yarn lint && yarn clean",
     "build": "npm run clean && env NODE_ENV=production parcel build --no-content-hash --no-source-maps public/*.html",
-    "build:dev": "env NODE_ENV=development parcel build public/*.html",
-    "lint": "tslint --format stylish --fix --project tsconfig.json",
-    "pretest": "yarn lint",
-    "test": "jest",
-    "test:watch": "jest --watch"
+    "build:dev": "env NODE_ENV=development parcel build public/*.html"
   },
   "license": "MIT",
   "devDependencies": {
