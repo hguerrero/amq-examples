@@ -1,63 +1,62 @@
-
 {
-    "compileOnSave": false,
-    "include": [
-      "src",
-      "test"
+  "compileOnSave": false,
+  "include": [
+    "src",
+    "test"
+  ],
+  "exclude": [
+    "dist",
+    "node_modules"
+  ],
+  "compilerOptions": {
+    "outDir": "./",
+    "strict": true,
+    "pretty": true,
+    "sourceMap": true,
+    "declaration": true,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "module": "es2015",
+    "target": "es5",
+    "baseUrl": "./",
+    "typeRoots": [
+      "node_modules/@types",
+      "src/@types"
     ],
-    "exclude": [
-      "dist",
-      "node_modules"
+    "types": [
+      "node"
     ],
-    "compilerOptions": {
-      "outDir": "./",
-      "strict": true,
-      "pretty": true,
-      "sourceMap": true,
-      "declaration": true,
-      "moduleResolution": "node",
-      "emitDecoratorMetadata": true,
-      "experimentalDecorators": true,
-      "allowSyntheticDefaultImports": true,
-      "module": "es2015",
-      "target": "es5",
-      "baseUrl": "./",
-      "typeRoots": [
-        "node_modules/@types",
-        "src/@types"
+    "paths": {
+      "@app/*": [
+        "src/*"
       ],
-      "types": [
-        "node"
+      "@components/*": [
+        "src/components/*"
       ],
-      "paths": {
-        "@app/*": [
-          "src/*"
-        ],
-        "@components/*": [
-          "src/components/*"
-        ],
-        "@styles/*": [
-          "src/styles/*"
-        ],
-        "@public/*": [
-          "public/*"
-        ],
-        "@assets/*": [
-          "public/assets/*"
-        ]
-      },
-      "noEmit": true,
-      "jsx": "react",
-      "jsxFactory": "h",
-      "lib": [
-        "es2017",
-        "dom",
-        "es2015.generator",
-        "es2015.iterable",
-        "es2015.promise",
-        "es2015.symbol",
-        "es2015.symbol.wellknown",
-        "esnext.asynciterable"
+      "@styles/*": [
+        "src/styles/*"
+      ],
+      "@public/*": [
+        "public/*"
+      ],
+      "@assets/*": [
+        "public/assets/*"
       ]
-    }
-  }  
+    },
+    "noEmit": true,
+    "jsx": "react",
+    "jsxFactory": "h",
+    "lib": [
+      "es2017",
+      "dom",
+      "es2015.generator",
+      "es2015.iterable",
+      "es2015.promise",
+      "es2015.symbol",
+      "es2015.symbol.wellknown",
+      "esnext.asynciterable"
+    ]
+  }
+}

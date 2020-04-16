@@ -79,7 +79,29 @@
                             "kind": "ImageStreamTag",
                             "namespace": "openshift",
                             "name": "nodejs:10"
-                        }
+                        },
+                        "env": [
+                            {
+                                "name": "AMQ_URL",
+                                "value": "${AMQ_URL}"
+                            },
+                            {
+                                "name": "DESTINATION",
+                                "value": "${DESTINATION}"
+                            },
+                            {
+                                "name": "MQ_USERNAME",
+                                "value": "${MQ_USERNAME}"
+                            },
+                            {
+                                "name": "MQ_PASSWORD",
+                                "value": "${MQ_PASSWORD}"
+                            },
+                            {
+                                "name": "LOOPBACK",
+                                "value": "${LOOPBACK}"
+                            }
+                        ]
                     }
                 },
                 "output": {
@@ -160,28 +182,6 @@
                                 "name": "amq-html-demo",
                                 "image": "amq-html-demo",
                                 "imagePullPolicy": "Always",
-                                "env": [
-                                    {
-                                        "name": "AMQ_URL",
-                                        "value": "${AMQ_URL}"
-                                    },
-                                    {
-                                        "name": "DESTINATION",
-                                        "value": "${DESTINATION}"
-                                    },
-                                    {
-                                        "name": "MQ_USERNAME",
-                                        "value": "${MQ_USERNAME}"
-                                    },
-                                    {
-                                        "name": "MQ_PASSWORD",
-                                        "value": "${MQ_PASSWORD}"
-                                    },
-                                    {
-                                        "name": "LOOPBACK",
-                                        "value": "${LOOPBACK}"
-                                    }
-                                ],
                                 "livenessProbe": {
                                     "failureThreshold": 3,
                                     "httpGet": {
