@@ -121,6 +121,18 @@
             <groupId>io.apicurio</groupId>
             <artifactId>apicurio-registry-maven-plugin</artifactId>
             <version>${apicurio.registry.version}</version>
+            <dependencies>
+              <dependency>
+                <groupId>javax.annotation</groupId>
+                <artifactId>javax.annotation-api</artifactId>
+                <version>1.3.2</version>
+              </dependency>
+              <dependency>
+                <groupId>javax.enterprise</groupId>
+                <artifactId>cdi-api</artifactId>
+                <version>2.0.SP1</version>
+              </dependency>
+            </dependencies>
             <executions>
               <execution>
                 <phase>generate-sources</phase>
