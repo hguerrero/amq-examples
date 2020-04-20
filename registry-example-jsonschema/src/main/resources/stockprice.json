@@ -11,12 +11,15 @@
         "symbol": {
             "$id": "#/properties/symbol",
             "type": "string",
+            "minLength": 1,
+            "maxLength": 4,
             "title": "The Stock Symbol",
             "description": "This is the stock symbol used in the market."
         },
         "price": {
             "$id": "#/properties/price",
             "type": "number",
+            "minimum": 0,
             "title": "The Price Schema",
             "description": "An explanation about the purpose of this instance."
         }

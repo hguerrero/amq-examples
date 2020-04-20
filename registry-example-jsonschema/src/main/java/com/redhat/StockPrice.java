@@ -3,14 +3,12 @@ package com.redhat;
 public class StockPrice {
 
     private String symbol;
-    // private String stock;
     private Double price;
 
     public StockPrice() {}
 
     public StockPrice(String symbol, Double price) {
         this.symbol = symbol;
-        // this.stock = symbol;
         this.price = price;
     }
 
@@ -20,12 +18,6 @@ public class StockPrice {
 	public void setSymbol(String symbol) {
 		this.symbol = symbol;
 	}
-	// public String getStock() {
-	// 	return stock;
-	// }
-	// public void setStock(String symbol) {
-	// 	this.stock = symbol;
-	// }
 	public Double getPrice() {
 		return price;
 	}
@@ -33,4 +25,13 @@ public class StockPrice {
 		this.price = price;
 	}
 
+	@Override
+	public String toString() {
+		try {
+			return new com.fasterxml.jackson.databind.ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(this);
+		} catch (com.fasterxml.jackson.core.JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		return super.toString();
+	}
 }

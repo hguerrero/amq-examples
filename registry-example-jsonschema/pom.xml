@@ -145,7 +145,7 @@
               <registryUrl>http://localhost:8081</registryUrl>
               <artifactType>JSON</artifactType>
               <artifacts>
-                <schema1>${project.basedir}/src/main/resources/stockprice.json</schema1>
+                <prices-json-value>${project.basedir}/src/main/resources/stockprice.json</prices-json-value>
               </artifacts>
             </configuration>
           </plugin>
