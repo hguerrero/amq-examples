@@ -26,12 +26,12 @@ public class RegistryExampleJSONSchema {
 
     @Outgoing("price-out")
     public Flowable<KafkaRecord<String, StockPrice>> generate() throws IOException {
-        return Flowable.interval(1000, TimeUnit.MILLISECONDS)
+        return Flowable.interval(10, TimeUnit.SECONDS)
                 .onBackpressureDrop()
                 .map(tick -> {
                     StockPrice message = new StockPrice();
                     message.setSymbol(symbols[random.nextInt(4)]);
-                    message.setPrice( random.nextDouble() * 100);
+                    message.setPrice( random.nextDouble() * -100);
                     LOGGER.info("=====> Sending message {} to topic {}", message, "price-out");
                     return KafkaRecord.of(message.getSymbol(), message);
                 });

@@ -19,7 +19,6 @@
         "price": {
             "$id": "#/properties/price",
             "type": "number",
-            "minimum": 0,
             "title": "The Price Schema",
             "description": "An explanation about the purpose of this instance."
         }
