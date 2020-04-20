@@ -39,7 +39,7 @@ The application is based on Quarkus so it can be started executing the following
 
 This will start the application sending and receiveing messages every 10 seconds.
 
-### Validate producer
+### Validate producer
 
 * Stop the running application by pressing `Ctrl + C` or `Cmd + C`.
 
@@ -76,7 +76,7 @@ This will start the application sending and receiveing messages every 10 seconds
         Location: at
     ```
 
-### Validate consumer
+### Validate consumer
 
 We will reuse the events we sent with the incorrect schema by simulating a different process.
 
