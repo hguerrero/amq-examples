@@ -1,0 +1,24 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "http://example.com/stockprice.json",
+    "type": "object",
+    "title": "Stock Price Schema",
+    "required": [
+        "symbol",
+        "price"
+    ],
+    "properties": {
+        "symbol": {
+            "$id": "#/properties/symbol",
+            "type": "string",
+            "title": "The Stock Symbol",
+            "description": "This is the stock symbol used in the market."
+        },
+        "price": {
+            "$id": "#/properties/price",
+            "type": "number",
+            "title": "The Price Schema",
+            "description": "An explanation about the purpose of this instance."
+        }
+    }
+}
