@@ -21,7 +21,7 @@ To start the local development cluster and registry:
 
 ## Start Application
 
-The application is based on Quarkus so it can be started executing the followin command:
+The application is based on Quarkus (using Java 8) so it can be started executing the following command:
 
 ```bash
 ./mvnw compile quarkus:dev
