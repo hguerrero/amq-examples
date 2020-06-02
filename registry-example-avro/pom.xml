@@ -18,6 +18,13 @@
     <quarkus.platform.version>1.0.0.Final</quarkus.platform.version>
     <surefire-plugin.version>2.22.1</surefire-plugin.version>
   </properties>
+  <repositories>
+    <repository>
+        <id>confluent</id>
+        <name>Confluent</name>
+        <url>https://packages.confluent.io/maven/</url>
+    </repository>
+  </repositories>
   <dependencyManagement>
     <dependencies>
       <dependency>
