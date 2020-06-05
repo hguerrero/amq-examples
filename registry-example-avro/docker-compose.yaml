@@ -35,7 +35,7 @@ services:
 
   registry:
     container_name: registry1
-    image: apicurio/apicurio-registry-mem:1.2.1.Final
+    image: apicurio/apicurio-registry-mem:1.2.2.Final
     ports:
       - "8081:8080"
     environment:
