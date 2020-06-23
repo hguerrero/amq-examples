@@ -16,6 +16,7 @@ This repository contains a set of examples to be used with Red Hat AMQ messaging
 * [Quarkus Apache Kafka Extension](kafka-quarkus-producer): Quarkus application using the Kafka extension and MicroProfile messaging
 * [Quarkus Apache Kafka Streams Extension](kafka-streams-quarkus-rideshare): Quarkus application using the Kafka Streams extension and, Kogito for event processing
 * [Apicurio service registry - Avro](registry-example-avro): Quarkus application using Apache Kafka with MicroProfile Reactive Messaging with the Apicuro service registry
+* [Apicurio service registry - JSON Schema](registry-example-jsonschema): Quarkus application using Apache Kafka with MicroProfile Reactive Messaging with the Apicuro service registry to validate JSON payloads.
 <!--* [MQTT HTML Demo](mqtt-html-demo)-->
 
 ## System Requirements

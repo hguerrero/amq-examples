@@ -17,7 +17,7 @@
     <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
     <quarkus.platform.version>1.3.2.Final</quarkus.platform.version>
     <surefire-plugin.version>2.22.1</surefire-plugin.version>
-    <apicurio.registry.version>1.1.2.fuse-760006-redhat-00001</apicurio.registry.version>
+    <apicurio.registry.version>1.2.1.Final</apicurio.registry.version>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -142,7 +142,7 @@
               </execution>
             </executions>
             <configuration>
-              <registryUrl>http://localhost:8081</registryUrl>
+              <registryUrl>http://localhost:8081/api</registryUrl>
               <artifactType>JSON</artifactType>
               <artifacts>
                 <prices-json-value>${project.basedir}/src/main/resources/stockprice.json</prices-json-value>

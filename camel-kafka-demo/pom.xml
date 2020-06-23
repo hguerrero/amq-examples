@@ -9,24 +9,86 @@
   <description>Spring Boot example running a Camel route defined in XML</description>
   <properties>
     <spring-boot.version>1.5.4.RELEASE</spring-boot.version>
-    <fabric8.version>3.0.11.fuse-720027-redhat-00001</fabric8.version>
-    <fabric8.maven.plugin.version>3.5.33.fuse-710023-redhat-00002</fabric8.maven.plugin.version>
-    <maven-compiler-plugin.version>3.6.0</maven-compiler-plugin.version>
+    <fabric8.version>3.0.11.fuse-760025-redhat-00001</fabric8.version>
+    <fabric8.maven.plugin.version>4.4.1</fabric8.maven.plugin.version>
+    <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven-surefire-plugin.version>2.19.1</maven-surefire-plugin.version>
+    <javax.activation.version>1.2.0</javax.activation.version>
+    <jaxb.api.version>2.3.0</jaxb.api.version>
+    <lombok.version>1.18.6</lombok.version>
   </properties>
   <dependencyManagement>
     <dependencies>
+
+      <dependency>
+        <groupId>com.sun.activation</groupId>
+        <artifactId>javax.activation</artifactId>
+        <version>${javax.activation.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>javax.xml.bind</groupId>
+        <artifactId>jaxb-api</artifactId>
+        <version>${jaxb.api.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.sun.xml.bind</groupId>
+        <artifactId>jaxb-core</artifactId>
+        <version>${jaxb.api.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.sun.xml.bind</groupId>
+        <artifactId>jaxb-impl</artifactId>
+        <version>${jaxb.api.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+        <version>${lombok.version}</version>
+        <scope>provided</scope>
+      </dependency>
+
       <dependency>
         <groupId>io.fabric8</groupId>
         <artifactId>fabric8-project-bom-camel-spring-boot</artifactId>
-        <version>3.0.11.fuse-720027-redhat-00001</version>
+        <version>3.0.11.fuse-760025-redhat-00001</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
     </dependencies>
   </dependencyManagement>
   <dependencies>
+
+    <dependency>
+      <groupId>com.sun.activation</groupId>
+      <artifactId>javax.activation</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>javax.xml.bind</groupId>
+      <artifactId>jaxb-api</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>com.sun.xml.bind</groupId>
+      <artifactId>jaxb-core</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>com.sun.xml.bind</groupId>
+      <artifactId>jaxb-impl</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <scope>provided</scope>
+    </dependency>
+
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-actuator</artifactId>
