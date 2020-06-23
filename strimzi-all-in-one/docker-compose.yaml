@@ -1,0 +1,69 @@
+version: '2'
+
+services:
+
+  zookeeper:
+    container_name: zookeeper
+    image: strimzi/kafka:0.18.0-kafka-2.5.0
+    command: [
+      "sh", "-c",
+      "bin/zookeeper-server-start.sh config/zookeeper.properties"
+    ]
+    ports:
+      - "2181:2181"
+    environment:
+      LOG_DIR: /tmp/logs
+
+  kafka:
+    container_name: kafka
+    image: strimzi/kafka:0.18.0-kafka-2.5.0
+    command: [
+      "sh", "-c",
+      "bin/kafka-server-start.sh config/server.properties --override listener.security.protocol.map=$${KAFKA_LISTENER_SECURITY_PROTOCOL_MAP} --override listeners=$${KAFKA_LISTENERS} --override advertised.listeners=$${KAFKA_ADVERTISED_LISTENERS} --override zookeeper.connect=$${KAFKA_ZOOKEEPER_CONNECT}"
+    ]
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+    environment:
+      LOG_DIR: "/tmp/logs"
+      KAFKA_BROKER_ID: 1
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_LISTENERS: PLAINTEXT://:29092,PLAINTEXT_HOST://:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+
+  registry:
+    container_name: registry
+    image: apicurio/apicurio-registry-mem:1.2.2.Final
+    depends_on:
+      - zookeeper
+      - kafka
+    ports:
+      - "8081:8080"
+    environment:
+      QUARKUS_PROFILE: prod
+      KAFKA_BOOTSTRAP_SERVERS: kafka:29092
+      APPLICATION_ID: registry_id
+      APPLICATION_SERVER: localhost:9000
+  
+  bridge:
+    container_name: bridge
+    image: strimzi/kafka-bridge:0.16.0
+    command: [
+      "sh", "-c",
+      "/opt/strimzi/bin/docker/kafka_bridge_run.sh"
+    ]
+    depends_on:
+      - zookeeper
+      - kafka
+    ports:
+      - "8082:8080"
+    environment:
+      KAFKA_BRIDGE_BOOTSTRAP_SERVERS: kafka:29092
+      KAFKA_BRIDGE_ID: bridge1
+      KAFKA_BRIDGE_HTTP_ENABLED: "true"
+      KAFKA_BRIDGE_HTTP_HOST: "0.0.0.0"
+      KAFKA_BRIDGE_HTTP_PORT: "8080"
+    volumes:
+      - ./log4j.properties:/opt/strimzi/custom-config/log4j.properties
