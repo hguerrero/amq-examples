@@ -1,6 +1,6 @@
 var container = require('rhea');
 
-container.on('connection_open', function (context) {
+container.once('connection_open', function (context) {
     context.connection.open_receiver('example');
     context.connection.open_sender('example');
 });
@@ -9,7 +9,7 @@ container.on('message', function (context) {
     console.log('Message received: ' + context.message.body);
 });
 
-container.on('sendable', function (context) {
+container.once('sendable', function (context) {
     function send() {
         if (context.sender.sendable()) {
             context.sender.send({body:'Hello World!'});
@@ -23,4 +23,6 @@ container.on('disconnected', function (context) {
     console.log('disconnected');
 });
 
-container.connect({'host':'broker-amq-amqp','port':5672, 'reconnect':true});
+const hostname = process.env.HOSTNAME || 'broker-amq-amqp'
+
+var conn = container.connect({'host':hostname,'port':5672, 'reconnect':true});
