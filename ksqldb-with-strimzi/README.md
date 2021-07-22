@@ -31,13 +31,13 @@ First you need to install Strimzi in your Kubernetes cluster. I recommend to use
 3. Create a Kafka cluster using Strimzi. You can use the single node with ephemeral storage
 
    ```sh
-   kubectl create -f kafka-single-ephemeral.yaml
+   kubectl create -f kafka-single-ephemeral.yaml -n kafka
    ```
 
 4. Deploy the ksql container using the provided file
 
    ```sh
-   kubectl create -f ksql.yaml
+   kubectl create -f ksql.yaml -n kafka
    ```
 
    If you are connecting to different Kafka cluster be sure to change the `KSQL_BOOTSTRAP_SERVERS`environment variable in the deployment yaml file to match your cluster bootstrap service:
@@ -52,7 +52,7 @@ First you need to install Strimzi in your Kubernetes cluster. I recommend to use
 Finally, you can run the ksqldb-cli container and connect to the ksqldb server
 
 ```sh
-kubectl run ksq-cli -it --image confluentinc/ksqldb-cli:0.19.0 --rm --restart Never -- /usr/bin/ksql http://ksql:8088
+kubectl -n kafka run ksq-cli -it --image confluentinc/ksqldb-cli:0.19.0 --rm --restart Never -- /usr/bin/ksql http://ksql:8088
 ```
 
 You should see the welcome screen and the prompt ready:
