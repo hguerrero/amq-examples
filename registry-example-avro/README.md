@@ -10,7 +10,7 @@ First you need an Apache Kafka cluster. You can follow the instructions from the
 
 To start the local development cluster and registry:
 
-1. Clone this GitHub repository
+1. Open a terminal window and clone this GitHub repository
 
     ```bash
     git clone https://github.com/hguerrero/amq-examples.git
@@ -23,17 +23,17 @@ To start the local development cluster and registry:
     ```
 
 1. Be sure Docker Desktop is running.
-1. Open a terminal window and execute the following command:
+1. Execute the following command:
 
     ```bash
-    docker-compose -f docker-compose.yaml up
+    docker-compose -f docker-compose.yaml up -d
     ```
 
 1. Wait until all the components are up and running.
 
 ## Start Application
 
-The application is based on Quarkus (using Java 8) so it can be started executing the following command in a new terminal window:
+The application is based on Quarkus (using Java 8) so it can be started executing the following command:
 
 ```bash
 ./mvnw quarkus:dev
