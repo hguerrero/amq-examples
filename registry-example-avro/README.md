@@ -6,9 +6,21 @@ This project shows how to use the Apicurio Service Registry to manage Apache Kaf
 
 First you need an Apache Kafka cluster. You can follow the instructions from the [Apache Kafka website](https://kafka.apache.org/quickstart) or use the `docker-compose.yaml` file in this project.
 
-### Using Local Environment
+## Using Local Environment
 
 To start the local development cluster and registry:
+
+1. Clone this GitHub repository
+
+    ```bash
+    git clone https://github.com/hguerrero/amq-examples.git
+    ```
+
+1. Navigate to /registry-example-avro directory.
+
+    ```bash
+    cd /amq-examples/registry-example-avro
+    ```
 
 1. Be sure Docker Desktop is running.
 1. Open a terminal window and execute the following command:
