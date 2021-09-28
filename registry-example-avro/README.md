@@ -19,7 +19,7 @@ To start the local development cluster and registry:
 1. Navigate to /registry-example-avro directory.
 
     ```bash
-    cd /amq-examples/registry-example-avro
+    cd amq-examples/registry-example-avro
     ```
 
 1. Be sure Docker Desktop is running.
