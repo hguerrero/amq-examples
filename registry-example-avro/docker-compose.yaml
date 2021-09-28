@@ -4,7 +4,7 @@ services:
 
   zookeeper:
     container_name: zookeeper
-    image: strimzi/kafka:0.18.0-kafka-2.5.0
+    image: quay.io/strimzi/kafka:0.25.0-kafka-2.8.0
     command: [
       "sh", "-c",
       "bin/zookeeper-server-start.sh config/zookeeper.properties"
@@ -16,7 +16,7 @@ services:
 
   kafka:
     container_name: kafka
-    image: strimzi/kafka:0.18.0-kafka-2.5.0
+    image: quay.io/strimzi/kafka:0.25.0-kafka-2.8.0
     command: [
       "sh", "-c",
       "bin/kafka-server-start.sh config/server.properties --override listeners=$${KAFKA_LISTENERS} --override advertised.listeners=$${KAFKA_ADVERTISED_LISTENERS} --override zookeeper.connect=$${KAFKA_ZOOKEEPER_CONNECT}"
@@ -35,7 +35,7 @@ services:
 
   registry:
     container_name: registry1
-    image: apicurio/apicurio-registry-mem:1.2.2.Final
+    image: quay.io/apicurio/apicurio-registry-mem:2.0.1.Final
     ports:
       - "8081:8080"
     environment:

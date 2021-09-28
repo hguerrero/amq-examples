@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.redhat</groupId>
   <artifactId>registry-example-avro</artifactId>
@@ -16,10 +15,20 @@
     <quarkus.platform.artifact-id>quarkus-universe-bom</quarkus.platform.artifact-id>
     <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
     <quarkus.platform.version>1.0.0.Final</quarkus.platform.version>
-    <apicurio.registry.version>1.2.2.Final</apicurio.registry.version>
+    <apicurio.registry.version>2.0.1.Final</apicurio.registry.version>
     <surefire-plugin.version>2.22.1</surefire-plugin.version>
-    <confluent.version>5.3.0</confluent.version>
+    <confluent.version>5.3.4</confluent.version>
   </properties>
+  <repositories>
+    <repository>
+      <id>confluent</id>
+      <url>http://packages.confluent.io/maven/</url>
+    </repository>
+    <repository>
+      <id>redhat-ga</id>
+      <url>https://maven.repository.redhat.com/ga/</url>
+    </repository>
+  </repositories>
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -52,7 +61,7 @@
     </dependency>
     <dependency>
       <groupId>io.apicurio</groupId>
-      <artifactId>apicurio-registry-utils-serde</artifactId>
+      <artifactId>apicurio-registry-serdes-avro-serde</artifactId>
       <version>${apicurio.registry.version}</version>
     </dependency>
     <dependency>
