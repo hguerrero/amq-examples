@@ -21,10 +21,10 @@ To start the local development cluster and registry:
 
 ## Start Application
 
-The application is based on Quarkus (using Java 8) so it can be started executing the following command:
+The application is based on Quarkus (using Java 8) so it can be started executing the following command in a new terminal window:
 
 ```bash
-./mvnw compile quarkus:dev
+./mvnw quarkus:dev
 ```
 
 This will start the application in the Confluent schema registry compatibility mode.
@@ -34,11 +34,11 @@ This will start the application in the Confluent schema registry compatibility m
 To use the Apicurio Avro Serializer and Deserializer:
 
 1. Open the `application.properties` file
-2. Uncomment the `value.serializer` properties to use the `io.apicurio.registry.utils.serde.AvroKafkaSerializer`and `io.apicurio.registry.utils.serde.AvroKafkaDeserializer` classes instead.
+2. Uncomment the `value.serializer` properties to use the `io.apicurio.registry.serde.avro.AvroKafkaSerializer`and `io.apicurio.registry.serde.avro.AvroKafkaDeserializer` classes instead.
 
     ```properies
-    mp.messaging.outgoing.price-out.value.serializer=io.apicurio.registry.utils.serde.AvroKafkaSerializer
-    mp.messaging.incoming.price-in.value.deserializer=io.apicurio.registry.utils.serde.AvroKafkaDeserializer
+    mp.messaging.outgoing.price-out.value.serializer=io.apicurio.registry.serde.avro.AvroKafkaSerializer
+    mp.messaging.incoming.price-in.value.deserializer=io.apicurio.registry.serde.avro.AvroKafkaDeserializer
     ```
 
 3. Comment the same lines that use the `io.confluent.kafka.*` packages
@@ -51,17 +51,17 @@ To use the Apicurio Avro Serializer and Deserializer:
 4. Uncomment the property using the `apicurio` registry
 
     ```properies
-    mp.messaging.incoming.price-in.apicurio.registry.url=http://localhost:8080
+    mp.messaging.incoming.price-in.apicurio.registry.url=http://localhost:8081/apis/registry/v2
     ```
 
 5. Comment the property using the `schema` registry
 
     ```properies
-    # mp.messaging.incoming.price-in.schema.registry.url=http://localhost:8080/confluent
+    # mp.messaging.incoming.price-in.schema.registry.url=http://localhost:8081/apis/ccompat/v6
     ```
 
 To test that everything is workin start again the application with the new configuration values:
 
 ```bash
-./mvnw compile quarkus:dev
+./mvnw quarkus:dev
 ```
