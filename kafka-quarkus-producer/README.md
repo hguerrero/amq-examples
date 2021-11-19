@@ -20,7 +20,7 @@ To start the local development Kafka cluster:
 The application is based on Quarkus so it can be started executing the following command:
 
 ```sh
-./mvnw compile quarkus:dev
+mvn compile quarkus:dev
 ```
 
 This will start the application sending _uber_ vehicle information every 5 seconds to the `uber` topic in the Kafka cluster.
