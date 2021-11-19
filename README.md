@@ -26,3 +26,4 @@ These applications are designed to be run with Red Hat AMQ 7 components. To comp
 * JDK 8 or 11+
 * Maven 3
 * GraalVM Community
+* Docker Desktop or Podman
