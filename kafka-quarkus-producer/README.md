@@ -10,7 +10,7 @@ To start the local development Kafka cluster:
 
 2. Open a terminal window and execute the following command:
     ```sh
-    docker-compose -f docker-compose.yaml up
+    docker-compose -f ../strimzi-all-in-one/docker-compose.yaml up
     ```
 
 3. Wait until all the components are up and running.
