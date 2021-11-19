@@ -1,6 +1,6 @@
 # Using Quarkus Reactive Messaging with Apache Kafka
 
-This example shows how to send events to Apache Kafka using Quarkus and SmallRye's implementation of the Eclipse MicroProfile Reactive Messaging.
+This example shows how to send events to [Apache Kafka](https://kafka.apache.org/) using [Quarkus](https://quarkus.io/) and the [SmallRye's extension](https://smallrye.io/smallrye-reactive-messaging/) of the [Eclipse MicroProfile Reactive Messaging](https://github.com/eclipse/microprofile-reactive-messaging).
 
 ### Using Local Environment
 
@@ -20,7 +20,7 @@ To start the local development Kafka cluster:
 The application is based on Quarkus so it can be started executing the following command:
 
 ```sh
-./mvnw quarkus:dev
+./mvnw compile quarkus:dev
 ```
 
 This will start the application sending _uber_ vehicle information every 5 seconds to the `uber` topic in the Kafka cluster.
