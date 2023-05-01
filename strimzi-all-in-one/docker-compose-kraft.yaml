@@ -1,0 +1,50 @@
+version: '3.3'
+services:
+  kafka:
+    container_name: kafka
+    image: quay.io/strimzi/kafka:latest-kafka-3.4.0
+    command: [
+      "sh", "-c",
+      "export CLUSTER_ID=$$(bin/kafka-storage.sh random-uuid) && bin/kafka-storage.sh format -t $$CLUSTER_ID -c config/kraft/server.properties && bin/kafka-server-start.sh config/kraft/server.properties --override advertised.listeners=$${KAFKA_ADVERTISED_LISTENERS} --override listener.security.protocol.map=$${KAFKA_LISTENER_SECURITY_PROTOCOL_MAP} --override listeners=$${KAFKA_LISTENERS}"
+    ]
+    ports:
+      - "9092:9092"
+    environment:
+      LOG_DIR: "/tmp/logs"
+      KAFKA_BROKER_ID: 1
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_LISTENERS: PLAINTEXT://:29092,PLAINTEXT_HOST://:9092,CONTROLLER://:9093
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
+
+  registry:
+    container_name: registry
+    image: quay.io/apicurio/apicurio-registry-mem:2.4.2.Final
+    depends_on:
+      - kafka
+    ports:
+      - "8081:8080"
+    environment:
+      QUARKUS_PROFILE: prod
+      KAFKA_BOOTSTRAP_SERVERS: kafka:29092
+      APPLICATION_ID: registry_id
+      APPLICATION_SERVER: localhost:9000
+  
+  bridge:
+    container_name: bridge
+    image: quay.io/strimzi/kafka-bridge:latest
+    command: [
+      "sh", "-c",
+      "/opt/strimzi/bin/docker/kafka_bridge_run.sh"
+    ]
+    depends_on:
+      - kafka
+    ports:
+      - "8082:8080"
+    environment:
+      KAFKA_BRIDGE_BOOTSTRAP_SERVERS: kafka:29092
+      KAFKA_BRIDGE_ID: bridge1
+      KAFKA_BRIDGE_HTTP_ENABLED: "true"
+      KAFKA_BRIDGE_HTTP_HOST: "0.0.0.0"
+      KAFKA_BRIDGE_HTTP_PORT: "8080"
+    volumes:
+      - ./log4j.properties:/opt/strimzi/custom-config/log4j.properties
