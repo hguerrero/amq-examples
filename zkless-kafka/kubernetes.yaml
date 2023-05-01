@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: zkless-kafka
-        image: quay.io/strimzi/kafka:latest-kafka-2.8.1-amd64
+        image: quay.io/strimzi/kafka:latest-kafka-3.4.0
         command:
           - /bin/sh
           - -c
