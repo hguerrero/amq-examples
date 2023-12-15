@@ -14,11 +14,11 @@ spec:
     spec:
       containers:
       - name: zkless-kafka
-        image: quay.io/strimzi/kafka:latest-kafka-3.4.0
+        image: quay.io/strimzi/kafka:latest-kafka-3.6.1
         command:
           - /bin/sh
           - -c
-          - 'export CLUSTER_ID=$(bin/kafka-storage.sh random-uuid) && bin/kafka-storage.sh format -t $CLUSTER_ID -c config/kraft/server.properties && bin/kafka-server-start.sh config/kraft/server.properties --override advertised.listeners=${KAFKA_ADVERTISED_LISTENERS}'
+          - 'export CLUSTER_ID=$(bin/kafka-storage.sh random-uuid) && bin/kafka-storage.sh format -t $CLUSTER_ID -c config/kraft/server.properties --ignore-formatted && bin/kafka-server-start.sh config/kraft/server.properties --override advertised.listeners=${KAFKA_ADVERTISED_LISTENERS}'
         env:
         - name: LOG_DIR
           value: /tmp/logs

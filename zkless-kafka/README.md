@@ -9,7 +9,7 @@ We will be using the Kafka 3.4.0 version of the [Strimzi](https://strimzi.io/) p
 First option is to just run the single container with [Docker](https://docker.io) or [Podman](https://podman.io):
 
 ```sh
-docker run -it --name kafka-zkless -p 9092:9092 -e LOG_DIR=/tmp/logs quay.io/strimzi/kafka:latest-kafka-3.4.0 /bin/sh -c 'export CLUSTER_ID=$(bin/kafka-storage.sh random-uuid) && bin/kafka-storage.sh format -t $CLUSTER_ID -c config/kraft/server.properties && bin/kafka-server-start.sh config/kraft/server.properties'
+docker run -it --name kafka-zkless -p 9092:9092 -e LOG_DIR=/tmp/logs quay.io/strimzi/kafka:latest-kafka-3.6.1 /bin/sh -c 'export CLUSTER_ID=$(bin/kafka-storage.sh random-uuid) && bin/kafka-storage.sh format -t $CLUSTER_ID -c config/kraft/server.properties --ignore-formatted && bin/kafka-server-start.sh config/kraft/server.properties'
 ```
 
 ## Docker Compose
