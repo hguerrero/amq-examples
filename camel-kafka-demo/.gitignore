@@ -4,3 +4,6 @@
 *.jks
 *.crt
 target/
+
+.camel-jbang
+.vscode
